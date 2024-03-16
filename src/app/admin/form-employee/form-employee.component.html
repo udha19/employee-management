@@ -1,0 +1,167 @@
+<div class="d-flex flex-direction-column align-items-center justify-content-center">
+
+    <div class=" p-4 rounded mt-5 align-self-center border">
+
+        <div class="row">
+
+            <div class="col-md-6 col-sm-12 px-1">
+                <div class="form-group">
+                    <label>username</label>
+                    <input
+                        [disabled]="isEdit"
+                        type="text"
+                        class="form-control"
+                        placeholder="id"
+                        [(ngModel)]="employee.id"
+                        [ngModelOptions]="{standalone: true}"
+                        (ngModelChange)="checkid($event)"
+                        required
+                    >
+                    <span
+                        *ngIf="!isEdit && !isAvailable && employee.id.length > 5"
+                        class="help-inline text-danger"
+                    >
+                        id is taken
+                    </span>
+                    <span
+                        *ngIf="!isEdit && employee.id.length < 5 &&  employee.id.length > 1"
+                        class="help-inline text-danger"
+                    >
+                        id must more than
+              5 character
+                    </span>
+
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 px-1">
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Email address</label>
+                    <input
+                        type="email"
+                        class="form-control"
+                        placeholder="Email"
+                        [(ngModel)]="employee.email"
+                        [ngModelOptions]="{standalone: true}"
+                        required
+                    >
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 col-sm-12 px-1">
+                <div class="form-group">
+                    <label>First Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="First Name"
+                        [(ngModel)]="employee.firstName"
+                        [ngModelOptions]="{standalone: true}"
+                        required
+                    >
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 px-1">
+                <div class="form-group">
+                    <label>Last Name</label>
+                    <input
+                        type="text"
+                        class="form-control"
+                        placeholder="Last Name"
+                        [(ngModel)]="employee.lastName"
+                        [ngModelOptions]="{standalone: true}"
+                        required
+                    >
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12 px-1">
+                <div class="form-group">
+                    <label>Birth Date</label>
+                    <input
+                        type="date"
+                        [max]="today"
+                        class="form-control"
+                        placeholder="First Name"
+                        [(ngModel)]="employee.birthDate"
+                        [ngModelOptions]="{standalone: true}"
+                    >
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 px-1">
+                <div class="form-group">
+                    <label>Basic Sallary</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">Rp</span>
+                        </div>
+                        <input
+                            currencyMask
+                            [options]="{ decimal:'', precision: 0, prefix: '',thousands: '.'}"
+                            type="text"
+                            class="form-control"
+                            placeholder="Last Name"
+                            [(ngModel)]="employee.basicSalary"
+                            [ngModelOptions]="{standalone: true}"
+                        >
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 col-sm-12 px-1">
+                <div class="form-group">
+                    <label>Group</label>
+                    <ng-select [(ngModel)]="employee.group">
+                      <ng-option *ngFor="let group of groups" [value]="group.label">{{group.label}}</ng-option>
+                   </ng-select>
+                </div>
+            </div>
+            <div class="col-md-6 col-sm-12 px-1">
+                <div class="form-group">
+                    <label>Status</label>
+                    <select class="browser-default custom-select">
+                        <option selected>Select Status</option>
+                        <option value="Active">Active</option>
+                        <option value="Inactive">Inactive</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12 px-1">
+                <div class="form-group">
+                    <label>Description</label>
+                    <textarea
+                        class="form-control textarea"
+                        [(ngModel)]="employee.description"
+                        [ngModelOptions]="{standalone: true}"
+                    >
+                    </textarea>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="update d-flex col-md-6 col-sm-12 p-2 justify-content-center">
+                <button
+                    type="button"
+                    (click)="submit($event) "
+                    class="btn btn-primary btn-round"
+                >
+                    OK
+                </button>
+            </div>
+            <div class="d-flex col-md-6 col-sm-12 p-2 justify-content-center">
+                <button
+                    class="btn btn-secondary btn-round"
+                    [routerLink]="'/admin'"
+                >
+                    Cancel
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

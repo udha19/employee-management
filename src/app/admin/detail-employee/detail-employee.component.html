@@ -1,0 +1,61 @@
+<div class=" align-items-center justify-content-center">
+
+  <div class=" mx-5 rounded mt-5 align-self-center border">
+    <div class="row">
+      <div class="row my-4">
+        <div class="text-center">
+          <img src="./assets/images/account.png" alt style="width: 175px; height: 145px" class="rounded-circle">
+        </div>
+
+        <div class="text-center">
+          <p><i>
+            "{{employee.description}}"
+          </i></p>
+        </div>
+
+      </div>
+      <div class="row m-2">
+        <div class="col-6">Employee Name</div>
+        <div class="col-6">
+          {{employee.firstName}} {{employee.lastName}}
+        </div>
+      </div>
+      <div class="row m-2">
+        <div class="col-6">Employee Email</div>
+        <div class="col-6">{{employee.email}}</div>
+      </div>
+      <div class="row m-2">
+        <div class="col-6">Employee Salary</div>
+        <div class="col-6">{{employee.basicSalary | rupiah}}</div>
+      </div>
+      <div class="row m-2">
+        <div class="col-6">Employee Birth Date</div>
+        <div class="col-6">{{employee.birthDate}}</div>
+      </div>
+      <div class="row m-2">
+        <div class="col-6">Employee Group</div>
+        <div class="col-6">{{employee.group}}</div>
+      </div>
+      <div class="row m-2">
+        <div class="col-6">Employee Status</div>
+        <div class="col-6">
+          <span class="badge badge-success rounded-pill d-inline  px-2"
+            *ngIf="employee.status.toLowerCase() == 'active'">
+            {{employee.status}}
+          </span>
+          <span class="badge badge-warning rounded-pill d-inline px-2 "
+            *ngIf="employee.status.toLowerCase() == 'inactive'">
+            {{employee.status}}
+          </span>
+        </div>
+      </div>
+      <div class="row justify-content-center my-4 px-5">
+        <button class="btn btn-secondary btn-round" [routerLink]="'/admin'">
+          OK
+        </button>
+
+      </div>
+    </div>
+  </div>
+
+</div>
