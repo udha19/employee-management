@@ -110,7 +110,6 @@
       }
     }
   },
-  "defaultProject": "employee-management",
   "cli": {
     "analytics": false
   }
