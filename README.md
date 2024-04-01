@@ -11,6 +11,7 @@ run `npm run server`
 
 Install dependency `npm install` then
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+live demo: https://employee-927c7.web.app
 
 ## Additional info
 

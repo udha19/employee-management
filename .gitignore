@@ -4,6 +4,10 @@
 /dist
 /tmp
 /out-tsc
+/public
+/public_def
+/.firebase
+/.angular
 # Only exists if Bazel was run
 /bazel-out
 
