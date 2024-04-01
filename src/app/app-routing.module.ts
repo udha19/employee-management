@@ -4,7 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'admin',
     pathMatch: 'full',
   },
   {
@@ -16,12 +16,8 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then(x => x.AuthModule)
   },
   {
-    path: 'user',
-    loadChildren: () => import('./employee/employee.module').then(x => x.EmployeeModule)
-  },
-  {
     path: '**',
-    redirectTo: 'auth'
+    redirectTo: 'admin'
   }];
 
 @NgModule({
