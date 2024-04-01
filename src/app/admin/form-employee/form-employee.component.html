@@ -115,18 +115,37 @@
                 <div class="form-group">
                     <label>Group</label>
                     <ng-select [(ngModel)]="employee.group">
-                      <ng-option *ngFor="let group of groups" [value]="group.label">{{group.label}}</ng-option>
-                   </ng-select>
+                        <ng-option
+                            *ngFor="let group of groups"
+                            [value]="group.label"
+                        >
+                            {{group.label}}
+                        </ng-option>
+                    </ng-select>
                 </div>
             </div>
             <div class="col-md-6 col-sm-12 px-1">
+
                 <div class="form-group">
                     <label>Status</label>
-                    <select class="browser-default custom-select">
+                    <div class="form-check form-switch mt-2">
+                      <label class="form-check-label" for="flexSwitchCheckChecked"
+                      >{{status}}</label
+                    >
+                      <input
+                        mdbCheckbox
+                        class="form-check-input"
+                        type="checkbox"
+                        id="flexSwitchCheckChecked"
+                        [checked]="isStatusActive"
+                        (change)="onSwitchChange($event)"
+                      />
+                    </div>
+                    <!-- <select class="browser-default custom-select">
                         <option selected>Select Status</option>
                         <option value="Active">Active</option>
                         <option value="Inactive">Inactive</option>
-                    </select>
+                    </select> -->
                 </div>
             </div>
         </div>

@@ -21,6 +21,7 @@ export class ListEmployeesComponent implements OnInit {
     page: '',
     query: '',
   };
+  loading: boolean = false;
 
   sorting: any = [
     { value: 'name-asc', label: 'By Name (ascending)' },
@@ -57,6 +58,7 @@ export class ListEmployeesComponent implements OnInit {
         }
       });
     });
+
   }
 
   setList(opt?: string) {
@@ -69,6 +71,7 @@ export class ListEmployeesComponent implements OnInit {
             data.sort((a, b): any => {
               return a.firstName.localeCompare(b.firstName);
             });
+
             return data;
           })
         );
@@ -79,6 +82,7 @@ export class ListEmployeesComponent implements OnInit {
             data.sort((a, b): any => {
               return b.firstName.localeCompare(a.firstName);
             });
+
             return data;
           })
         );
@@ -89,8 +93,9 @@ export class ListEmployeesComponent implements OnInit {
             data.sort((a, b): any => {
               const date1 = Date.parse(a.birthDate);
               const date2 = Date.parse(b.birthDate);
-              return date1 - date2;
+              return date2 - date1;
             });
+
             return data;
           })
         );
@@ -101,8 +106,9 @@ export class ListEmployeesComponent implements OnInit {
             data.sort((a, b): any => {
               const date1 = Date.parse(a.birthDate);
               const date2 = Date.parse(b.birthDate);
-              return date2 - date1;
+              return date1 - date2;
             });
+
             return data;
           })
         );
@@ -158,6 +164,7 @@ export class ListEmployeesComponent implements OnInit {
   deleteEmployee(username: string) {
     this.service.deleteEmployee(username).subscribe((res) => {
       this.successAlert('delete employee success');
+      this.getEmployees()
       return false;
     });
   }

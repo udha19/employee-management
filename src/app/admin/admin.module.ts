@@ -12,6 +12,8 @@ import { MdbModalModule } from 'mdb-angular-ui-kit/modal';
 import { PipeModule } from '../share/pipe/pipe.module';
 import { DetailEmployeeComponent } from './detail-employee/detail-employee.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { MdbCheckboxModule } from 'mdb-angular-ui-kit/checkbox';
+import { NgxSkeletonLoaderModule } from 'ngx-skeleton-loader';
 
 const routes: Routes = [
   {
@@ -46,7 +48,9 @@ const routes: Routes = [
     FormsModule,
     NgxCurrencyModule,
     PipeModule,
+    MdbCheckboxModule,
     NgSelectModule,
+    NgxSkeletonLoaderModule,
     RouterModule.forChild(routes)
   ],
   providers: [

@@ -8,7 +8,6 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class AdminService {
   private baseUrl = 'https://65f5d7ff41d90c1c5e0a40f6.mockapi.io/data/employee';
-  // private baseUrl = 'http://localhost:4000/data';
 
 
   constructor(
