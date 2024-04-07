@@ -1,20 +1,22 @@
 import { Employee } from './../_model/employee';
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { AdminService } from '../_service/admin.service';
 import Swal from 'sweetalert2';
 import { MdbCheckboxDirective } from 'mdb-angular-ui-kit/checkbox';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-form-employee',
   templateUrl: './form-employee.component.html',
   styleUrls: ['./form-employee.component.scss'],
 })
-export class FormEmployeeComponent implements OnInit {
+export class FormEmployeeComponent implements OnInit, OnDestroy {
   today: string = new Date().toISOString().split('T')[0]
   id: string = '';
   status: string = 'Active'
   isStatusActive: boolean = true
+  subscription: Subscription | undefined;
 
   @ViewChild(MdbCheckboxDirective, { static: true }) switch!: MdbCheckboxDirective;
 
@@ -53,12 +55,15 @@ export class FormEmployeeComponent implements OnInit {
     this.id = this.route.snapshot.url[1] ? this.route.snapshot.url[1].path : '';
     if (this.id != '') this.getEmployee()
   }
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
+  }
 
   ngOnInit(): void {
   }
   getEmployee() {
     this.isEdit = true;
-    this.service.getEmployee(this.id).subscribe(res => {
+    this.subscription = this.service.getEmployee(this.id).subscribe(res => {
       this.employee = res;
       this.setStatus(this.employee.status)
     })
@@ -67,7 +72,7 @@ export class FormEmployeeComponent implements OnInit {
 
   checkid(event: any) {
     if(event.length > 5) {
-      this.service.getEmployee(event).subscribe({
+      this.subscription = this.service.getEmployee(event).subscribe({
         next: res => {
           this.isAvailable = false
         },
@@ -100,7 +105,7 @@ export class FormEmployeeComponent implements OnInit {
     e.preventDefault()
     // debugger
     if(this.isEdit){
-      this.service.updateEmployee(this.employee).subscribe({
+      this.subscription = this.service.updateEmployee(this.employee).subscribe({
         next: res => {
           const succes_message = 'update employee success'
           this.successOpertion(succes_message)
@@ -108,7 +113,7 @@ export class FormEmployeeComponent implements OnInit {
         error: err => {}
       })
     } else {
-      this.service.addEmployee(this.employee).subscribe(res => {
+      this.subscription = this.service.addEmployee(this.employee).subscribe(res => {
         const succes_message = 'add employee success'
         this.successOpertion(succes_message)
       })

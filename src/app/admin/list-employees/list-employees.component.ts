@@ -1,5 +1,5 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { Component, OnInit, Injectable } from '@angular/core';
+import { BehaviorSubject, Observable, Subscription } from 'rxjs';
+import { Component, OnInit, Injectable, OnDestroy } from '@angular/core';
 import { Employee } from '../_model/employee';
 import { AdminService, StateService } from '../_service/admin.service';
 import Swal from 'sweetalert2';
@@ -10,9 +10,11 @@ import { map } from 'rxjs/operators';
   templateUrl: './list-employees.component.html',
   styleUrls: ['./list-employees.component.scss'],
 })
-export class ListEmployeesComponent implements OnInit {
+export class ListEmployeesComponent implements OnInit, OnDestroy {
   list_employees: Observable<Employee[]> | undefined;
   show_employees: Observable<Employee[]> | undefined;
+  subscription: Subscription | undefined;
+
   limit: number = 10;
   pages: any = [];
   page: number = 0;
@@ -42,7 +44,9 @@ export class ListEmployeesComponent implements OnInit {
     this.page = this.stateService.page$.getValue();
     this.query = this.stateService.query$.getValue();
   }
-
+  ngOnDestroy(){
+    this.subscription?.unsubscribe()
+  }
   getEmployees() {
     this.list_employees = this.service.getEmployees();
     this.setPage();
@@ -51,7 +55,7 @@ export class ListEmployeesComponent implements OnInit {
 
   setPage() {
     this.pages = [];
-    this.list_employees?.subscribe((v) => {
+    this.subscription = this.list_employees?.subscribe((v) => {
       v.forEach((item, index) => {
         if (index % this.limit == 0) {
           this.pages.push(index / this.limit + 1);

@@ -1,13 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../_service/admin.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-detail-employee',
   templateUrl: './detail-employee.component.html',
   styleUrls: ['./detail-employee.component.scss']
 })
-export class DetailEmployeeComponent implements OnInit {
+export class DetailEmployeeComponent implements OnInit, OnDestroy {
+  subscription: Subscription | undefined;
 
   username: string = '';
   employee = {
@@ -24,18 +26,20 @@ export class DetailEmployeeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private router: Router,
     private service: AdminService
   ) {
     this.username = this.route.snapshot.url[0] ? this.route.snapshot.url[0].path : '';
     if (this.username != '') this.getEmployee()
+  }
+  ngOnDestroy(): void {
+    this.subscription?.unsubscribe()
   }
 
   ngOnInit(): void {
   }
 
   getEmployee() {
-    this.service.getEmployee(this.username).subscribe(res => {
+    this.subscription = this.service.getEmployee(this.username).subscribe(res => {
       this.employee = res;
     })
   }
